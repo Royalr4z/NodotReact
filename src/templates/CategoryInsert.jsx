@@ -42,7 +42,7 @@ export default function CategoryInsert() {
                 document.querySelector('#typeSubtitle').value = ''
                 setTimeout(() => {
                     window.location.href = '/category-creation' 
-                }, 3000);
+                }, 1500);
         
             }
         } catch (error) {
@@ -56,16 +56,11 @@ export default function CategoryInsert() {
       }
 
     const deletar = async () => {
-        const dadosDeletados = {
-            id: id,
-            name: document.querySelector('#typeName').value,
-            subtitle: document.querySelector('#typeSubtitle').value,
-        };
 
         const options = {
             headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `bearer ${token}`
+              'Content-Type': 'application/json',
+              'Authorization': `bearer ${token}`
             }
         };
 
@@ -73,7 +68,7 @@ export default function CategoryInsert() {
         setBoxError(true)
     
         try {
-            const response = await axios.delete(`${BaseUrl}/category/${id}`, dadosDeletados, options);
+            const response = await axios.delete(`${BaseUrl}/category/${id}`, options);
             if (response.status === 204) {
                     setBoxError(true)
                     setBoxSuccess(false)
