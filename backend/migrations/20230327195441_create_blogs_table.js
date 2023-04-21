@@ -8,7 +8,7 @@ exports.up = function(knex) {
         table.string('date').notNull()
         table.string('title').notNull()
         table.string('subtitle').notNull()
-        table.string('imageUrl', 1000)
+        table.string('imageUrl', 2083)
         table.string('content', 250000).notNull()
         table.integer('userId').references('id')
             .inTable('users').notNull()

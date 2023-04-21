@@ -1,8 +1,6 @@
 const { authSecret } = require('../.env')
 const jwt = require('jwt-simple')
 const bcrypt = require('bcrypt-nodejs')
-const http = require('http');
-const axios = require('axios')
 
 module.exports = app => {
 
