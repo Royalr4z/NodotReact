@@ -33,7 +33,7 @@ export default function Features() {
                         </div>
                         <div className="col-lg-4  wow zoomIn" data-wow-delay="0.9s" style={{minHeight: '350px'}}>
                             <div className="position-relative h-100">
-                                <img className="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.1s" src={imgFeature} style={{objectFit: 'cover'}} />
+                                <img className="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.1s" alt="recursos" src={imgFeature} style={{objectFit: 'cover'}} />
                             </div>
                         </div>
                         <div className="col-lg-4">

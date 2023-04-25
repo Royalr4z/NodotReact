@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import axios from 'axios'
 import { BaseUrl } from '../BaseUrl'
 
@@ -79,7 +79,7 @@ export default function Login() {
                                     {/* <!-- ErrorMsg End --> */}
 
                                     <div className="mb-md-5 mt-md-4 pb-5">
-                                        <a href="../index.html" className="p-0 mb-5"
+                                        <a href="/" className="p-0 mb-5"
                                             style={{fontSize: '4rem'}}>
                                             <i className="bi bi-globe2 text-light"></i>
                                     </a>
@@ -100,7 +100,7 @@ export default function Login() {
                                     <button onClick={connectUser} className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                                 </div>
                                 <div>
-                                    <p className="mb-0">Não tem uma conta? <a href="signup.html" className="text-white-50 fw-bold">Inscrever-se</a>
+                                    <p className="mb-0">Não tem uma conta? <a href="signup" className="text-white-50 fw-bold">Inscrever-se</a>
                                     </p>
                                 </div>
 

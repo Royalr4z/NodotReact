@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from 'axios'
 import { BaseUrl } from '../BaseUrl'
+import $ from 'jquery'
 
 export default function CategoryInsert() {
     const token = localStorage.getItem('token');
@@ -146,14 +147,14 @@ export default function CategoryInsert() {
         }
     }
 
-    if (id && mode == 'edit') {
+    if (id && mode === 'edit') {
         axios.get(`${BaseUrl}/category/${id}`)
           .then(category => { 
             document.querySelector('#typeName').value = category.data.name
             document.querySelector('#typeSubtitle').value = category.data.subtitle
           })
           .catch(err => console.log(err))
-    } if (id && mode == 'delete') {
+    } if (id && mode === 'delete') {
         axios.get(`${BaseUrl}/category/${id}`)
           .then(category => { 
             document.querySelector('#typeName').value = category.data.name

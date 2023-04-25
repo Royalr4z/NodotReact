@@ -61,7 +61,7 @@ export default function BlogInsert() {
             content: document.querySelector('#typeContent').value,
             userId: document.querySelector('#typeUser').value,
             categoryId: document.querySelector('#typeCategory').value,
-        };
+        }
         
         setBoxSuccess(true)
         setBoxError(true)
@@ -140,7 +140,7 @@ export default function BlogInsert() {
                         <option defaultValue value="">Selecione o Usuário</option>
                         {users.map((user, index) => {
                             return (
-                                <option key={user.id} defaultValue value={user.id}>{user.name}</option>
+                                <option key={user.id} value={user.id}>{user.name}</option>
                             )
                         })}
                     </select>
@@ -151,7 +151,7 @@ export default function BlogInsert() {
                         <option defaultValue value="">Selecione a Categoria</option>
                         {category.map((category, index) => {
                             return (
-                                <option key={category.id} defaultValue value={category.id}>{category.name}</option>
+                                <option key={category.id} value={category.id}>{category.name}</option>
                             )
                         })}
                     </select>

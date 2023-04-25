@@ -28,7 +28,7 @@ export default function Home() {
 
             <div className="d-flex justify-content-center" data-wow-delay="0.1s">
                 <div className="pb-5 mb-5 ">
-                    <img className="mt-3" src={INSS} alt="" style={{minHeight: '120px', width: '200px'}}/>
+                    <img className="mt-3" src={INSS} alt="" style={{ minHeight: '120px', width: '200px' }}/>
                 </div>
             </div>
             <Footer/>

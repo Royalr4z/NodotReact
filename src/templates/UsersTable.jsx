@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react"
 import axios from 'axios'
 import { BaseUrl } from '../BaseUrl'
 import Error from './Error'
+import $ from 'jquery'
 
 export default function UsersTable() {
-    const token = localStorage.getItem('token');
-    const params = new URLSearchParams(window.location.search);
+
+    // const params = new URLSearchParams(window.location.search);
     // const id = params.get('id');
     // const mode = params.get('mode');
 
@@ -13,6 +14,7 @@ export default function UsersTable() {
     const [error, setError] = useState(true);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
         axios.get(`${BaseUrl}/users`, {
             headers: {
                 'Content-Type': 'application/json',

@@ -45,7 +45,7 @@ export default function About() {
                 </div>
                 <div className="col-lg-5" style={{minHeight: '500px'}}>
                     <div className="position-relative h-100">
-                        <img className="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src={imgAbout} style={{objectFit: 'cover'}}/>
+                        <img className="position-absolute w-100 h-100 rounded wow zoomIn" alt="Sobre" data-wow-delay="0.9s" src={imgAbout} style={{objectFit: 'cover'}}/>
                     </div>
                 </div>
             </div>

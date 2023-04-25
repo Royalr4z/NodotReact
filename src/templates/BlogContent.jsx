@@ -61,17 +61,24 @@ export default function BlogContent() {
                 <div className="col-lg-8">
                     {/* <!-- Blog Detail Start --> */}
                         <div className="mb-5">
-                            <img className="img-fluid w-100 rounded mb-0" 
+                            <img className="img-fluid w-100 rounded-3 border border-gray mb-0" 
                             src={blogData.imageUrl ? blogData.imageUrl : 
                             'https://gumlet.assettype.com/newslaundry%2F2020-12%2F79605f3f-caeb-4d5b-965b-0feba01f911b%2FRetraction_in_2020_AI.jpg?auto=format%2Ccompress&fit=max&format=webp&w=480&dpr=2.6'} alt=""/>
-                            <div className="d-flex justify-content-between bg-dark my-2">
+                            <hr className="text-dark mt-5 mb-4"/>
+                            <div className="d-flex justify-content-between my-2">
                                 <div className="d-flex align-self-stretch">
-                                        <i className="bi bi-person text-white m-1 mx-2 fs-5"></i>
-                                    <span className="text-white m-1 fs-5">
+                                        <i className="bi bi-person text-danger m-1 mx-2 fs-5"></i>
+                                    <span className="text-dark m-1 fs-5">
                                         {blogData.userName ? blogData.userName : '----'}
                                     </span>
                                 </div>
-                                <span className="text-white bg-primary py-1 px-5 fs-5">
+                                <div className="d-flex align-self-stretch">
+                                        <i className="bi bi-calendar text-danger m-1 mx-2 fs-5"></i>
+                                    <span className="text-dark m-1 fs-5">
+                                        {blogData.date ? blogData.date : '----'}
+                                    </span>
+                                </div>
+                                <span className="text-white bg-primary rounded-3 py-1 px-5 fs-5">
                                     {blogData.categoryName ? blogData.categoryName : '----'}
                                 </span>
                             </div>

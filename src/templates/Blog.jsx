@@ -24,11 +24,18 @@ export default function Blog() {
         window.location.href = `./blog?pg=1` 
     } 
 
-    function load(pagination = 1) {
-        if (!categoryUrl) {
+    function Load(pagination = 1) {
+        
         useEffect(() => {
+            let url = ''
+            if (!categoryUrl) {
+                url = `${BaseUrl}/blogs?page=${pagination <= 0 ? pagination = 1 : pagination}&limit=${itensPerPage}`
+                 
+            } else {
+                url = `${BaseUrl}/Blogs/category?page=${pagination <= 0 ? pagination = 1 : pagination}&limit=${itensPerPage}&category=${categoryUrl}`
+            }
             setLoading(true);
-            axios.get(`${BaseUrl}/blogs?page=${pagination <= 0 ? pagination = 1 : pagination}&limit=${itensPerPage}`)
+            axios.get(`${url}`)
               .then(response => response.data)
               .then(data => {
                 if (pagination > data.pagination.totalPages) {
@@ -37,7 +44,7 @@ export default function Blog() {
                 const totalCount = data.pagination.totalCount;
                 const blogData = data.blog.map(blog => {
                     if (!blog.imageUrl) {
-                        blog.imageUrl = {blog2};
+                        blog.imageUrl = imgBlog2;
                     }
                     return blog;
                 });
@@ -47,30 +54,6 @@ export default function Blog() {
               })
               .catch(err => console.log('Error 500'))
           }, [categoryUrl, counter]);
-        } else {
-            useEffect(() => {
-                setLoading(true);
-                axios.get(`${BaseUrl}/Blogs/category?page=${pagination <= 0 ? pagination = 1 : pagination}&limit=${itensPerPage}&category=${categoryUrl}`)
-                  .then(response => response.data)
-                  .then(data => {
-                    if (data.blog.length === 0) { return <Error/> }
-                    if (pagination > data.pagination.totalPages) {
-                        window.location.href = `./blog?pg=${data.pagination.totalPages}&category=${categoryUrl}`
-                    }
-                    const totalCount = data.pagination.totalCount;
-                    const blogData = data.blog.map(blog => {
-                        if (!blog.imageUrl) {
-                            blog.imageUrl = {blog2};
-                        }
-                        return blog;
-                    });
-    
-                    setBlogs(blogData);
-                    setLoading(false);
-                  })
-                  .catch(err => console.log('Error 500'))
-              }, [categoryUrl, counter]);
-        }
     }
 
     const [posts, setPosts] = useState([]);
@@ -142,9 +125,9 @@ export default function Blog() {
     }
 
     if(!paginationUrl) {
-        load()
+        Load()
     } if(paginationUrl) {
-        load(paginationUrl)
+        Load(paginationUrl)
     }
 
     return(
@@ -155,17 +138,18 @@ export default function Blog() {
                 <div className="col-lg-8">
 
                     <div className="row g-5">
-                    {loading ? <Error status="500"/> : blogs.map((blog, index) => {
+                    {loading && <Error status="500"/>}
+                    {!loading && blogs.map((blog, index) => {
                             return (
                             <div key={`blog-${blog.id}`} className="col-md-6 wow slideInUp mb-4" data-wow-delay="0.1s" id={`item-${blog.id}`}>
                                 <div className="blog-item bg-light rounded overflow-hidden">
                                 <div className="blog-img position-relative overflow-hidden">
-                                    <img className="img-fluid" src={blog.imageUrl} alt="" style={{ height: '20%', width: '100%' }} />
+                                    <img className="img-fluid border-1 border-top border-start border-end border-gray" src={blog.imageUrl} alt={`imagem-${blog.title}`} style={{ height: '25vh', width: '100vh' }} />
                                     <a className="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href={`blog?category=${blog.categoryName}`}>
                                     {blog.categoryName}
                                     </a>
                                 </div>
-                                <div className="p-4">
+                                <div className="p-4 border-2 border border-gray">
                                     <div className="d-flex mb-3">
                                     <small className="me-3"><i className="far fa-user text-primary me-2"></i>{blog.userName}</small>
                                     <small><i className="far fa-calendar-alt text-primary me-2"></i>{blog.date}</small>

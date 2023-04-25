@@ -6,9 +6,6 @@ import Error from "./Error";
 export default function IndexBlog() {
 
     const [blogs, setBlogs] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itensPerPage = 3;
-    const [validation, setValidation] = useState(true);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -16,11 +13,6 @@ export default function IndexBlog() {
             .then(response => {
                 const blogsData = response.data.blog;
                 setBlogs(blogsData);
-                if (response.data.pagination.totalCount / itensPerPage <= 1) {
-                    setValidation(false);
-                } else {
-                    setValidation(true);
-                }
                 setLoading(true);
             })
             .catch(error => {
@@ -38,17 +30,16 @@ export default function IndexBlog() {
                 </div>
                 <div className="row g-5">
                     {!loading ? <Error status="500"/> : blogs.map((blog, index) => {
-                        if (index < currentPage * itensPerPage && index >= (currentPage - 1) * itensPerPage) {
                             return (
                                 <div className="col-lg-4 wow slideInUp" key={`item-${index}`}>
                                     <div className="blog-item bg-light rounded overflow-hidden">
                                         <div className="blog-img position-relative overflow-hidden">
-                                            <img className="img-fluid" src={blog.imageUrl || 'img/blog-2.jpg'} alt="" style={{ height: '20%', width: '100%' }} />
+                                            <img className="img-fluid border-1 border-top border-start border-end border-gray" src={blog.imageUrl || 'img/blog-2.jpg'} alt="" style={{ height: '25vh', width: '100vh' }} />
                                             <a className="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href={`blog?category=${blog.categoryName}`}>
                                                 {blog.categoryName}
                                             </a>
                                         </div>
-                                        <div className="p-4">
+                                        <div className="p-4 border-2 border border-gray">
                                             <div className="d-flex mb-3">
                                                 <small className="me-3">
                                                     <i className="far fa-user text-primary me-2" />
@@ -68,8 +59,6 @@ export default function IndexBlog() {
                                     </div>
                                 </div>
                             );
-                        }
-                        return null;
                     })}
                 </div>
             </div>
