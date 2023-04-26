@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BaseUrl } from "../BaseUrl";
 import axios from 'axios';
-import imgBlog1 from '../img/blog-1.jpg'
+import imgBlog4 from '../img/blog-4.jpg'
 import imgBlog2 from '../img/blog-2.jpg'
 import Error from './Error'
 
@@ -222,17 +222,18 @@ export default function Blog() {
                             <h3 className="mb-0">Postagem recente</h3>
                         </div>
                         {posts.map(post => (
-                            <div key={`post-${post.id}`} className="d-flex rounded overflow-hidden mb-3 bg-light border border-primary" style={{ borderRadius: '200px' }}>
+                            <a key={`post-${post.id}`} href={`detail?id=${post.id}`} 
+                            className="d-flex rounded overflow-hidden mb-3 bg-light border border-2 border-primary" style={{ borderRadius: '200px' }}>
                                 <img className="img-fluid" src={post.imageUrl} style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="" />
-                                <a href={`detail?id=${post.id}`} className="h5 fw-semi-bold d-flex align-items-center px-3 mb-0 text-dark">{post.title}</a>
-                            </div>
+                                <span className="h5 fw-semi-bold d-flex align-items-center px-3 mb-0 text-dark">{post.title}</span>
+                            </a>
                         ))}
                     </div>
                     {/* <!-- Recent Post End --> */}
     
                     {/* <!-- Image Start --> */}
-                    <div className="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <img src={imgBlog1} alt="" className="img-fluid rounded"/>
+                    <div className="mb-5 wow slideInUp border border-3 border-primary" data-wow-delay="0.1s">
+                        <img src={imgBlog4} alt="" className="img-fluid rounded"/>
                     </div>
                     {/* <!-- Image End --> */}
     
