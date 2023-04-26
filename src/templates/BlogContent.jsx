@@ -78,7 +78,7 @@ export default function BlogContent() {
                                         {blogData.date ? blogData.date : '----'}
                                     </span>
                                 </div>
-                                <a className="text-white bg-primary rounded-3 py-1 px-5 fs-5" href={`blog?category=${blogData.categoryName}`}>
+                                <a className="text-white bg-primary rounded-3 py-1 px-4 fs-5" href={`blog?category=${blogData.categoryName}`}>
                                     {blogData.categoryName ? blogData.categoryName : '----'}
                                 </a>
                             </div>

@@ -2,13 +2,13 @@ import React from "react";
 
 export default function Service(props) {
     return (
-    <div className={props.style === 'dark'?
+    <div className={props.theme === 'dark'?
         'container-fluid py-5 wow fadeInUp bg-dark' :
         'container-fluid py-5 wow fadeInUp'} data-wow-delay="0.1s">
         <div className="container py-5">
             <div className="section-title text-center position-relative pb-3 mb-5 mx-auto" style={{maxWidth: '600px'}}>
                 <h5 className="fw-bold text-primary text-uppercase">Serviços</h5>
-                <h1 className={props.style === 'dark'?
+                <h1 className={props.theme === 'dark'?
                     'mb-0 text-light' :
                     'mb-0 text-dark'}>
                 Soluções de TI personalizadas para o seu negócio de sucesso</h1>
