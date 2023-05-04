@@ -31,7 +31,7 @@ export default function IndexHeader() {
         <div id="header-carousel" className="carousel slide carousel-fade" data-bs-ride="carousel">
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <img className="w-100" style={{minHeight: '100vh', maxHeight: '100vh'}} src={Home1} alt="Image"/>
+                    <img className="w-100" style={{minHeight: '100vh', maxHeight: '100vh'}} src={Home1} alt="home-server-1"/>
                     <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div className="p-3" style={{maxWidth: '100%'}}>
                             <h5 className="text-white text-uppercase mb-3 animated slideInDown">INFRAESTRUTURA & SEGURANÇA</h5>
@@ -42,7 +42,7 @@ export default function IndexHeader() {
                     </div>
                 </div>
                 <div className="carousel-item">
-                    <img className="w-100" style={{minHeight: '100vh', maxHeight: '100vh'}} src={Home2} alt="Image"/>
+                    <img className="w-100" style={{minHeight: '100vh', maxHeight: '100vh'}} src={Home2} alt="home-server-2"/>
                     <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div className="p-3" style={{maxWidth: '100%'}}>
                             <h2 className="display-1 text-white mb-md-4 animated zoomIn"></h2>

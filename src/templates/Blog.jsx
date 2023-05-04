@@ -38,19 +38,25 @@ export default function Blog() {
             axios.get(`${url}`)
               .then(response => response.data)
               .then(data => {
-                if (pagination > data.pagination.totalPages) {
-                    window.location.href = `./blog?pg=${data.pagination.totalPages}`
+                const totalPages = data.pagination.totalPages;
+
+                if (totalPages !== 0) {
+                    if (pagination > totalPages) {
+                        window.location.href = `./blog?pg=${totalPages}`
+                    }
+                } else {
+                    setLoading(true);
                 }
-                const totalCount = data.pagination.totalCount;
+
                 const blogData = data.blog.map(blog => {
                     if (!blog.imageUrl) {
                         blog.imageUrl = imgBlog2;
                     }
+                    setLoading(false);
                     return blog;
                 });
 
                 setBlogs(blogData);
-                setLoading(false);
               })
               .catch(err => console.log('Error 500'))
           }, [categoryUrl, counter]);
