@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-pod
+spec:
+  containers:
+    - name: postgres-container
+      image: postgres:15.2
+      env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "123456"
+        - name: POSTGRES_DB
+          value: "startup"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-service
+spec:
+  selector:
+    name: postgres-container
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+# docker context rm default
+# minikube mount "{{ Seu PATH }}\\backend:/backend"
+# Set-Alias -name k -value kubectl
+# k apply -f kubernetes.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-pod
+spec:
+  containers:
+    - name: backend-container
+      image: node:18.16.0
+      volumeMounts:
+        - name: backend-volume
+          mountPath: /backend
+      ports:
+        - containerPort: 4000
+      command: ["bash", "-c", "cd /backend && npm i && npx knex migrate:latest && npm start"]
+  volumes:
+    - name: backend-volume
+      hostPath:
+        path: "/backend"
+        type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend-container
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+---
+# docker context rm default
+# minikube mount "{{ Seu PATH }}\\frontend:/frontend"
+# Set-Alias -name k -value kubectl
+# k apply -f kubernetes.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+spec:
+  containers:
+    - name: frontend-container
+      image: node:18.16.0
+      volumeMounts:
+        - name: frontend-volume
+          mountPath: /frontend
+      ports:
+        - containerPort: 3000
+      command: ["bash", "-c", "cd /frontend && npm i && npm start"]
+  volumes:
+    - name: frontend-volume
+      hostPath:
+        path: "/frontend"
+        type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend-container
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
