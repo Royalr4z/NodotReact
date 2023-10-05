@@ -1,10 +1,10 @@
 module.exports = {
-    authSecret: '',
+    authSecret: 'secret',
     db: {
         host : '127.0.0.1',
         port: 5432,
-        database: '',
-        user: '',
+        database: 'nododb',
+        user: 'postgres',
         password: ''
     }
 }
