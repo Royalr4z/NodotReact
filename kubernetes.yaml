@@ -12,7 +12,7 @@ spec:
         - name: POSTGRES_PASSWORD
           value: "123456"
         - name: POSTGRES_DB
-          value: "startup"
+          value: "nodotdb"
 ---
 apiVersion: v1
 kind: Service
