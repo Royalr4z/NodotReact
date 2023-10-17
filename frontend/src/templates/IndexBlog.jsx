@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BaseUrl } from "../BaseUrl";
 import axios from 'axios';
-import Error from "./Error";
+import Loading from "./Loading";
 
 export default function IndexBlog() {
 
@@ -13,10 +13,10 @@ export default function IndexBlog() {
             .then(response => {
                 const blogsData = response.data.blog;
                 setBlogs(blogsData);
-                setLoading(true);
+                setLoading(false);
             })
             .catch(error => {
-                setLoading(false)
+                setLoading(true)
             });
     }, []);
 
@@ -29,7 +29,7 @@ export default function IndexBlog() {
                     <h1 className="mb-0">Leia os artigos mais recentes de nossa postagem no blog</h1>
                 </div>
                 <div className="row g-5">
-                    {!loading ? <Error status="500"/> : blogs.map((blog, index) => {
+                    {loading ? <Loading/> : blogs.map((blog, index) => {
                             return (
                                 <div className="col-lg-4 wow slideInUp" key={`item-${index}`}>
                                     <div className="blog-item bg-light rounded overflow-hidden">

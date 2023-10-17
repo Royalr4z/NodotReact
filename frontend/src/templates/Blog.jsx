@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BaseUrl } from "../BaseUrl";
 import axios from 'axios';
-import imgBlog4 from '../img/blog-4.jpg'
-import imgBlog2 from '../img/blog-2.jpg'
-import Error from './Error'
+import imgBlog4 from '../img/blog-4.jpg';
+import imgBlog2 from '../img/blog-2.jpg';
+import Error from './Error';
+import Loading from "./Loading";
 
 export default function Blog() {
 
@@ -144,7 +145,7 @@ export default function Blog() {
                 <div className="col-lg-8">
 
                     <div className="row g-5">
-                    {loading && <Error status="500"/>}
+                    {loading && <><Loading/><br /><Error status="500"/></>}
                     {!loading && blogs.map((blog, index) => {
                             return (
                             <div key={`blog-${blog.id}`} className="col-md-6 wow slideInUp mb-4" data-wow-delay="0.1s" id={`item-${blog.id}`}>
