@@ -1,5 +1,5 @@
-module.exports = middleware => {
-    return (req, res, next) => {
+module.exports = (middleware :any) => {
+    return (req :any, res :any, next :any) => {
         if(req.user.admin) {
             middleware(req, res, next)
         } else {

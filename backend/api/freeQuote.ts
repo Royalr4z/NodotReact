@@ -2,10 +2,10 @@ const moment = require('moment-timezone');
 const timeZone = 'America/Sao_Paulo';
 const dateTimeBrasil = moment().tz(timeZone).format().toString();
 
-module.exports = app => {
+module.exports = (app :any) => {
     const { existsOrError, notExistsOrError, equalsOrError, validateEmail } = app.api.validation
 
-    const save = async (req, res) => {
+    const save = async (req :any, res :any) => {
         const freeQuote = {
             id: req.body.id,
             date: dateTimeBrasil,
@@ -29,27 +29,27 @@ module.exports = app => {
 
         app.db('free_quote')
                 .insert(freeQuote)
-                .then(_ => res.status(204).send(_))
-                .catch(err => res.status(500).send(err))
+                .then((_ :any) => res.status(204).send(_))
+                .catch((err :any) => res.status(500).send(err))
     }
 
-    const get = (req, res) => {
+    const get = (req :any, res :any) => {
         app.db('free_quote')
             .select('id','date' ,'name', 'email', 'service', 'message')
-            .then(quote => res.json(quote))
-            .catch(err => res.status(500).send(err))
+            .then((quote :any) => res.json(quote))
+            .catch((err :any) => res.status(500).send(err))
     }
 
-    const getById = (req, res) => {
+    const getById = (req :any, res :any) => {
         app.db('free_quote')
             .select('id', 'date', 'name', 'email', 'service', 'message')
             .where({ id: req.params.id })
             .first()
-            .then(quote => res.json(quote))
-            .catch(err => res.status(500).send(err))
+            .then((quote :any) => res.json(quote))
+            .catch((err :any) => res.status(500).send(err))
     }
 
-    const remove = async (req, res) => {
+    const remove = async (req :any, res :any) => {
         try {
             existsOrError(req.params.id, 'Código da não informado.')
 

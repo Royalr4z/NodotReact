@@ -1,7 +1,7 @@
-module.exports = app => {
+module.exports = (app :any) => {
     const { existsOrError, notExistsOrError, equalsOrError} = app.api.validation
 
-    const save = async (req, res) => {
+    const save = async (req :any, res :any) => {
         const Blogs = {
             id: req.body.id,
             date: req.body.date,
@@ -26,11 +26,11 @@ module.exports = app => {
 
         app.db('blogs')
                 .insert(Blogs)
-                .then(_ => res.status(204).send(_))
-                .catch(err => res.status(500).send(err))
+                .then((_ :any) => res.status(204).send(_))
+                .catch((err :any) => res.status(500).send(err))
     }
 
-    const get = async (req, res) => {
+    const get = async (req :any, res :any) => {
         const { page, limit } = req.query;
         const offset = (page - 1) * limit;
         const [countResult] = await app.db('blogs').count();
@@ -45,7 +45,7 @@ module.exports = app => {
             'blogs.userId', 'users.name as userName', 'blogs.categoryId', 'category.name as categoryName')
             .offset(offset)
             .limit(limit)
-            .then(blog => res.json({
+            .then((blog :any) => res.json({
                 blog,
                 pagination: {
                     page,
@@ -54,10 +54,10 @@ module.exports = app => {
                     totalPages,
                 },
             }))
-            .catch(err => res.status(500).send(err))
+            .catch((err :any) => res.status(500).send(err))
     }
 
-    const getOrderBy = async (req, res) => {
+    const getOrderBy = async (req :any, res :any) => {
         const { page, limit } = req.query;
         const [countResult] = await app.db('blogs').count();
         const totalCount = countResult.count;
@@ -71,7 +71,7 @@ module.exports = app => {
             .limit(3)
             .from('blogs')
             .orderBy('id', 'desc')
-            .then(blog => res.json({
+            .then((blog :any) => res.json({
                 blog,
                 pagination: {
                     page,
@@ -79,11 +79,11 @@ module.exports = app => {
                     totalCount,
                 },
             }))
-            .catch(err => res.status(500).send(err))
+            .catch((err :any) => res.status(500).send(err))
     }
 
 
-    const getById = (req, res) => {
+    const getById = (req :any, res :any) => {
         app.db('blogs')
             .join('users', 'users.id', 'blogs.userId')
             .join('category', 'category.id', 'blogs.categoryId')
@@ -92,11 +92,11 @@ module.exports = app => {
             'blogs.subtitle', 'blogs.imageUrl', 'blogs.content',
             'blogs.userId', 'users.name as userName', 'blogs.categoryId', 'category.name as categoryName')
             .first()
-            .then(blog => res.json(blog))
-            .catch(err => res.status(500).send(err))
+            .then((blog :any) => res.json(blog))
+            .catch((err :any) => res.status(500).send(err))
     }
 
-    const getByCategory = async (req, res) => {
+    const getByCategory = async (req :any, res :any) => {
         const { page, limit, category } = req.query;
         const offset = (page - 1) * limit;
         const [countResult] = 
@@ -115,7 +115,7 @@ module.exports = app => {
             'blogs.userId', 'users.name as userName', 'blogs.categoryId', 'category.name as categoryName')
             .offset(offset)
             .limit(limit)
-            .then(blog => res.json({
+            .then((blog :any) => res.json({
                 blog,
                 pagination: {
                     page,
@@ -124,10 +124,10 @@ module.exports = app => {
                     totalPages,
                 },
             }))
-            .catch(err => res.status(500).send(err))
+            .catch((err :any) => res.status(500).send(err))
     }
 
-    const remove = async (req, res) => {
+    const remove = async (req :any, res :any) => {
         try {
             existsOrError(req.params.id, 'Código da não informado.')
 

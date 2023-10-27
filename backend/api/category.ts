@@ -1,7 +1,7 @@
-module.exports = app => {
+module.exports = (app :any) => {
     const { existsOrError, notExistsOrError } = app.api.validation
 
-    const save = async (req, res) => {
+    const save = async (req :any, res :any) => {
         const category = {
             id: req.body.id,
             name: req.body.name,
@@ -20,33 +20,33 @@ module.exports = app => {
             app.db('category')
                 .update(category)
                 .where({ id: category.id })
-                .then(_ => res.status(204).send())
-                .catch(err => res.status(500).send(err))
+                .then((_ :any) => res.status(204).send())
+                .catch((err :any) => res.status(500).send(err))
         } else {
             app.db('category')
                 .insert(category)
-                .then(_ => res.status(204).send())
-                .catch(err => res.status(500).send(err))
+                .then((_ :any) => res.status(204).send())
+                .catch((err :any) => res.status(500).send(err))
         }
     }
 
-    const get = (req, res) => {
+    const get = (req :any, res :any) => {
         app.db('category')
             .select('id', 'name', 'subtitle')
-            .then(msg => res.json(msg))
-            .catch(err => res.status(500).send(err))
+            .then((msg :any) => res.json(msg))
+            .catch((err :any) => res.status(500).send(err))
     }
 
-    const getById = (req, res) => {
+    const getById = (req :any, res :any) => {
         app.db('category')
             .select('id', 'name', 'subtitle')
             .where({ id: req.params.id })
             .first()
-            .then(msg => res.json(msg))
-            .catch(err => res.status(500).send(err))
+            .then((msg :any) => res.json(msg))
+            .catch((err :any) => res.status(500).send(err))
     }
 
-    const remove = async (req, res) => {
+    const remove = async (req :any, res :any) => {
         try {
             existsOrError(req.params.id, 'Código da não informado.')
 

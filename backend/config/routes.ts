@@ -1,6 +1,6 @@
 const admin = require('./admin')
 
-module.exports = app => {
+module.exports = (app :any) => {
     app.post('/signup', app.api.user.save)
     app.post('/signin', app.api.auth.signin)
     app.post('/validateToken', app.api.auth.validateToken)

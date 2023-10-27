@@ -2,9 +2,9 @@ const { authSecret } = require('../.env')
 const jwt = require('jwt-simple')
 const bcrypt = require('bcrypt-nodejs')
 
-module.exports = app => {
+module.exports = (app :any) => {
 
-    const signin = async (req, res) => {
+    const signin = async (req :any, res :any) => {
 
         if (!req.body.email) {
             return res.status(400).send('Email não Informado!')
@@ -43,7 +43,7 @@ module.exports = app => {
 
     }
 
-    const validateToken = async (req, res) => {
+    const validateToken = async (req :any, res :any) => {
         const userData = req.body || null
         try {
             if(userData) {
