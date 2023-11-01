@@ -4,9 +4,20 @@
   "description": "",
   "main": "api.js",
   "scripts": {
+    "//comments-dev": "Running the development environment",
     "start": "nodemon index.ts",
+
+    "//comments-prod": "Running the production environment",
     "prod": "pm2 start ecosystem.config.js",
-    "del": "pm2 delete app"
+    "reload": "pm2 reload app",
+    "restart": "pm2 restart app",
+    "del": "pm2 delete app",
+    "stop": "pm2 stop app",
+
+    "//comments-info": "API Information",
+    "monit": "pm2 monit",
+    "list": "pm2 list",
+    "logs": "pm2 logs"
   },
   "keywords": [],
   "author": "",
