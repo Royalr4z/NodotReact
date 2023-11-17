@@ -23,7 +23,7 @@ services:
       - app
     depends_on:
       - db
-    command: bash -c "cd /backend && npm i && npx knex migrate:latest && npm start"
+    command: bash -c "cd /backend && npm i && npx knex migrate:latest && npm run prod"
   frontend:
     image: node:18.16.0
     volumes:

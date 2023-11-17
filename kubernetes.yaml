@@ -43,7 +43,7 @@ spec:
           mountPath: /backend
       ports:
         - containerPort: 4000
-      command: ["bash", "-c", "cd /backend && npm i && npx knex migrate:latest && npm start"]
+      command: ["bash", "-c", "cd /backend && npm i && npx knex migrate:latest && npm run prod"]
   volumes:
     - name: backend-volume
       hostPath:
