@@ -1,8 +1,4 @@
 version: '3'
-networks:
-  banco:
-  app:
-  web:
 services:
   db:
     image: postgres:15.2
@@ -11,16 +7,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: nodotdb
-    networks:
-      - banco
   backend:
     image: node:18.16.0
     volumes:
       - ./backend:/backend
     ports:
       - 4000:4000
-    networks:
-      - app
     depends_on:
       - db
     command: bash -c "cd /backend && npm i && npx knex migrate:latest && npm run prod"
@@ -30,8 +22,6 @@ services:
       - ./frontend:/frontend
     ports:
       - 3000:3000
-    networks:
-      - web
     depends_on:
       - backend
     command: bash -c "cd /frontend && npm i && npm start"
