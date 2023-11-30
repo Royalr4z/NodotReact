@@ -15,7 +15,13 @@ services:
       - 4000:4000
     depends_on:
       - db
-    command: bash -c "cd /backend && npm i && npx knex migrate:latest && npm run prod"
+    command:   bash -c "
+      cd /backend &&
+      npm cache clean --force &&
+      rm -rf node_modules &&
+      npm i &&
+      npx knex migrate:latest &&
+      npm run prod"
   frontend:
     image: node:18.16.0
     volumes:
