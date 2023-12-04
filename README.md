@@ -1,4 +1,4 @@
-Meu Segundo Projeto - Uma Continuação do Primeiro Projeto
+- Aplicação Web Utilizando o React e o Node.JS
 
 Criação do Banco de Dados é feita Usando o Knex e o 
 Backend feito Usando as dependências do Node como o express, axios, nodemon e entre outros. 
