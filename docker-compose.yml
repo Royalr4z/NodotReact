@@ -21,7 +21,8 @@ services:
       rm -rf node_modules &&
       npm i &&
       npx knex migrate:latest &&
-      npm run prod"
+      npm run prod
+      npm run logs"
   frontend:
     image: node:18.16.0
     volumes:
