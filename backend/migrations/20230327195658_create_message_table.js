@@ -5,6 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('message', table => {
         table.increments('id').primary()
+        table.string('date').notNull()
         table.string('name').notNull()
         table.string('email').notNull()
         table.string('subject').notNull()
