@@ -1,9 +1,14 @@
+const moment = require('moment-timezone');
+const timeZone = 'America/Sao_Paulo';
+const dateTimeBrasil = moment().tz(timeZone).format().toString();
+
 module.exports = (app :any) => {
     const { existsOrError, notExistsOrError, equalsOrError, validateEmail } = app.api.validation
 
     const save = async (req :any, res :any) => {
         const message = {
             id: req.body.id,
+            date: dateTimeBrasil,
             name: req.body.name,
             email: req.body.email,
             subject: req.body.subject,
