@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: postgres-pod
+  labels:
+    name: postgres-container
 spec:
   containers:
     - name: postgres-container
@@ -34,6 +36,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: backend-pod
+  labels:
+    app: backend-container
 spec:
   containers:
     - name: backend-container
@@ -70,6 +74,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: frontend-pod
+  labels:
+    app: frontend-container
 spec:
   containers:
     - name: frontend-container
