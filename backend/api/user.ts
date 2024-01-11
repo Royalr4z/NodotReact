@@ -19,6 +19,7 @@ module.exports = (app :any) => {
             existsOrError(user.name, 'Nome não informado')
             existsOrError(user.email, 'E-mail não informado')
             existsOrError(user.password, 'Senha não informada')
+            if (user.password.length < 8) { throw "Senha muito curta" }
             existsOrError(user.confirmPassword, 
                 'Confirme sua Senha')
             equalsOrError(user.password, user.confirmPassword,
