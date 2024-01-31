@@ -7,18 +7,18 @@ module.exports = (app :any) => {
             date: req.body.date,
             title: req.body.title,
             subtitle: req.body.subtitle,
-            imageUrl: req.body.imageUrl,
+            imageurl: req.body.imageurl,
             content: req.body.content,
-            categoryId: req.body.categoryId,
-            userId: req.body.userId
+            categoryid: req.body.categoryid,
+            userid: req.body.userid
         }
         try {
             
             existsOrError(Blogs.title, 'Informe o Título!')
             existsOrError(Blogs.subtitle, 'Informe o Descrição!')
             existsOrError(Blogs.content, 'Coloque o Conteúdo!')
-            existsOrError(Blogs.userId, 'Informe o Usuário!')
-            existsOrError(Blogs.categoryId, 'Informe a Categoria!')
+            existsOrError(Blogs.userid, 'Informe o Usuário!')
+            existsOrError(Blogs.categoryid, 'Informe a Categoria!')
 
         } catch(msg) {
             return res.status(400).send(msg)
@@ -38,11 +38,11 @@ module.exports = (app :any) => {
         const totalPages = Math.ceil(totalCount / limit);
 
         app.db('blogs')
-            .join('users', 'users.id', 'blogs.userId')
-            .join('category', 'category.id', 'blogs.categoryId')
+            .join('users', 'users.id', 'blogs.userid')
+            .join('category', 'category.id', 'blogs.categoryid')
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageUrl', 'blogs.content',
-            'blogs.userId', 'users.name as userName', 'blogs.categoryId', 'category.name as categoryName')
+            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .offset(offset)
             .limit(limit)
             .then((blog :any) => res.json({
@@ -63,11 +63,11 @@ module.exports = (app :any) => {
         const totalCount = countResult.count;
 
         app.db('blogs')
-            .join('users', 'users.id', 'blogs.userId')
-            .join('category', 'category.id', 'blogs.categoryId')
+            .join('users', 'users.id', 'blogs.userid')
+            .join('category', 'category.id', 'blogs.categoryid')
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageUrl', 'blogs.content',
-            'blogs.userId', 'users.name as userName', 'blogs.categoryId', 'category.name as categoryName')
+            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .limit(3)
             .from('blogs')
             .orderBy('id', 'desc')
@@ -85,12 +85,12 @@ module.exports = (app :any) => {
 
     const getById = (req :any, res :any) => {
         app.db('blogs')
-            .join('users', 'users.id', 'blogs.userId')
-            .join('category', 'category.id', 'blogs.categoryId')
+            .join('users', 'users.id', 'blogs.userid')
+            .join('category', 'category.id', 'blogs.categoryid')
             .where('blogs.id', '=', req.params.id)
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageUrl', 'blogs.content',
-            'blogs.userId', 'users.name as userName', 'blogs.categoryId', 'category.name as categoryName')
+            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .first()
             .then((blog :any) => res.json(blog))
             .catch((err :any) => res.status(500).send(err))
@@ -101,18 +101,18 @@ module.exports = (app :any) => {
         const offset = (page - 1) * limit;
         const [countResult] = 
         await app.db('blogs')
-            .join('category', 'category.id', 'blogs.categoryId')
+            .join('category', 'category.id', 'blogs.categoryid')
             .where('category.name', '=', category).count();
         const totalCount = countResult.count;
         const totalPages = Math.ceil(totalCount / limit);
 
         app.db('blogs')
-            .join('users', 'users.id', 'blogs.userId')
-            .join('category', 'category.id', 'blogs.categoryId')
+            .join('users', 'users.id', 'blogs.userid')
+            .join('category', 'category.id', 'blogs.categoryid')
             .where('category.name', '=', category)
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageUrl', 'blogs.content',
-            'blogs.userId', 'users.name as userName', 'blogs.categoryId', 'category.name as categoryName')
+            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .offset(offset)
             .limit(limit)
             .then((blog :any) => res.json({

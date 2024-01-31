@@ -72,7 +72,7 @@ module.exports = (app :any) => {
     const remove = async (req :any, res :any) => {
         try {
             const blogs = await app.db('blogs')
-                .where({ userId: req.params.id })
+                .where({ userid: req.params.id })
             notExistsOrError(blogs, 'Usuário possui Blogs.')
 
             const rowsUpdated = await app.db('users')

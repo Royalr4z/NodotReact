@@ -51,7 +51,7 @@ module.exports = (app :any) => {
             existsOrError(req.params.id, 'Código da não informado.')
 
             const blogs = await app.db('blogs')
-                .where({ categoryId: req.params.id })
+                .where({ categoryid: req.params.id })
             notExistsOrError(blogs, 'Categoria possui Blogs.')
 
             const rowsUpdated = await app.db('category')
