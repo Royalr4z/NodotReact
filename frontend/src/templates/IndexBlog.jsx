@@ -34,7 +34,7 @@ export default function IndexBlog() {
                                 <div className="col-lg-4 wow slideInUp" key={`item-${index}`}>
                                     <div className="blog-item bg-light rounded overflow-hidden">
                                         <div className="blog-img position-relative overflow-hidden">
-                                            <img className="img-fluid border-1 border-top border-start border-end border-gray" src={blog.imageUrl || 'img/blog-2.jpg'} alt="" style={{ height: '25vh', width: '100vh' }} />
+                                            <img className="img-fluid border-1 border-top border-start border-end border-gray" src={blog.imageurl || 'img/blog-2.jpg'} alt="" style={{ height: '25vh', width: '100vh' }} />
                                             <a className="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href={`blog?category=${blog.categoryName}`}>
                                                 {blog.categoryName}
                                             </a>
