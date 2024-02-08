@@ -82,19 +82,39 @@ export default function Register() {
                                 <p className="text-light-50 mb-3">Por favor, digite seu nome, E-mail e senha!</p>
 
                                 <div className="form-outline form-white mb-4">
-                                    <input type="name" id="typeName" className="form-control form-control-lg" placeholder="Nome" />
+                                    <input type="name" id="typeName" className="form-control form-control-lg" placeholder="Nome"
+                                        onKeyDown={(event) => {
+                                            if (event.keyCode === 13) {
+                                                document.getElementById('typeEmail').focus()
+                                            }
+                                        }}/>
                                 </div>
 
                                 <div className="form-outline form-white mb-4">
-                                    <input type="email" id="typeEmail" className="form-control form-control-lg" placeholder="E-mail" />
+                                    <input type="email" id="typeEmail" className="form-control form-control-lg" placeholder="E-mail"
+                                        onKeyDown={(event) => {
+                                            if (event.keyCode === 13) {
+                                                document.getElementById('typePassword').focus()
+                                            }
+                                        }}/>
                                 </div>
 
                                 <div className="form-outline form-white mb-4">
-                                    <input type="password" id="typePassword" className="form-control form-control-lg" placeholder="Senha" />
+                                    <input type="password" id="typePassword" className="form-control form-control-lg" placeholder="Senha"
+                                        onKeyDown={(event) => {
+                                            if (event.keyCode === 13) {
+                                                document.getElementById('typeConfirmPassword').focus()
+                                            }
+                                        }}/>
                                 </div>
 
                                 <div className="form-outline form-white mb-4">
-                                    <input type="password" id="typeConfirmPassword" className="form-control form-control-lg" placeholder="Confirmação de senha" />
+                                    <input type="password" id="typeConfirmPassword" className="form-control form-control-lg" placeholder="Confirmação de senha"
+                                        onKeyDown={(event) => {
+                                            if (event.keyCode === 13) {
+                                                registerData()
+                                            }
+                                        }}/>
                                 </div>
 
                                 <button onClick={registerData} className="btn btn-outline-light btn-lg px-5 mt-2" type="submit">Cadastre-se</button>

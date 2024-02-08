@@ -88,11 +88,21 @@ export default function Login() {
                                     <p className="text-light-50 mb-5">Por favor, digite seu login e senha!</p>
 
                                     <div className="form-outline form-white mb-4">
-                                        <input type="email" id="typeEmail" className="form-control form-control-lg" placeholder="E-mail" />
+                                        <input type="email" id="typeEmail" className="form-control form-control-lg" placeholder="E-mail"
+                                            onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    document.getElementById('typePassword').focus()
+                                                }
+                                            }}/>
                                     </div>
 
                                     <div className="form-outline form-white mb-4">
-                                        <input type="password" id="typePassword" className="form-control form-control-lg" placeholder="Senha" />
+                                        <input type="password" id="typePassword" className="form-control form-control-lg" placeholder="Senha"
+                                            onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    connectUser()
+                                                }
+                                            }}/>
                                     </div>
 
                                     {/* <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Esqueceu a senha?</a></p> */}
