@@ -49,7 +49,7 @@ export default function Register() {
       }
 
     return (
-        <section className="vh-100 gradient-custom mb-5 pb-5">
+        <section className="gradient-custom mb-5 pb-5">
             <div className="container py-0 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-12 col-md-8 col-lg-6 col-xl-5">
