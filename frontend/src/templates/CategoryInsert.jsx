@@ -272,7 +272,11 @@ export default function CategoryInsert() {
             <form className="m-4">
                 <div className="mb-3">
                     <label className="col-form-label text-dark">Nome:</label>
-                    <input type="text" className="form-control" id="typeName"/>
+                    <input onKeyDown={(event) => {
+                            if (event.keyCode === 13) {
+                                document.getElementById('typeSubtitle').focus()
+                            }
+                        }} type="text" className="form-control" id="typeName"/>
                 </div>
                 <div className="mb-3">
                     <label className="col-form-label text-dark">Descrição:

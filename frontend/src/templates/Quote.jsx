@@ -97,13 +97,25 @@ export default function Quote() {
 
                             <div className="row g-3">
                                 <div className="col-xl-12">
-                                    <input id="typeName" type="text" className="form-control bg-light border-0" placeholder="Seu Nome" style={{height: '55px'}}/>
+                                    <input onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    document.getElementById('typeEmail').focus()
+                                                }
+                                            }} id="typeName" type="text" className="form-control bg-light border-0" placeholder="Seu Nome" style={{height: '55px'}}/>
                                 </div>
                                 <div className="col-12">
-                                    <input id="typeEmail" type="email" className="form-control bg-light border-0" placeholder="Seu E-mail" style={{height: '55px'}}/>
+                                    <input onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    document.getElementById('typeService').focus()
+                                                }
+                                            }} id="typeEmail" type="email" className="form-control bg-light border-0" placeholder="Seu E-mail" style={{height: '55px'}}/>
                                 </div>
                                 <div className="col-12">
-                                    <select id="typeService" className="form-select bg-light border-0" style={{height: '55px'}}>
+                                    <select onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    document.getElementById('typeMessage').focus()
+                                                }
+                                            }} id="typeService" className="form-select bg-light border-0" style={{height: '55px'}}>
                                         <option defaultValue value="">Selecione um serviço</option>
                                         <option value="Pentest">Pentest</option>
                                         <option value="Automação de Tarefas">Automação de Tarefas</option>

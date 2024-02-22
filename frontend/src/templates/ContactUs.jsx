@@ -113,13 +113,25 @@ export default function ContactUs() {
                             <form>
                                 <div className="row g-3">
                                     <div className="col-md-6">
-                                        <input type="text" id="typeUser" className="form-control border-0 bg-light px-4" placeholder="Seu Nome" style={{height: '55px'}}/>
+                                        <input onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    document.getElementById('typeEmail').focus()
+                                                }
+                                            }} type="text" id="typeUser" className="form-control border-0 bg-light px-4" placeholder="Seu Nome" style={{height: '55px'}}/>
                                     </div>
                                     <div className="col-md-6">
-                                        <input type="email" id="typeEmail" className="form-control border-0 bg-light px-4" placeholder="Seu E-mail" style={{height: '55px'}}/>
+                                        <input onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    document.getElementById('typeSubject').focus()
+                                                }
+                                            }} type="email" id="typeEmail" className="form-control border-0 bg-light px-4" placeholder="Seu E-mail" style={{height: '55px'}}/>
                                     </div>
                                     <div className="col-12">
-                                        <input type="text" id="typeSubject" className="form-control border-0 bg-light px-4" placeholder="Assunto" style={{height: '55px'}}/>
+                                        <input onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    document.getElementById('typeContent').focus()
+                                                }
+                                            }} type="text" id="typeSubject" className="form-control border-0 bg-light px-4" placeholder="Assunto" style={{height: '55px'}}/>
                                     </div>
                                     <div className="col-12">
                                         <textarea className="form-control border-0 bg-light px-4 py-3" id="typeContent" rows="4" placeholder="Mensagem"></textarea>

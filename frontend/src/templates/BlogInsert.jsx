@@ -120,15 +120,27 @@ export default function BlogInsert() {
             <form className="m-4">
                 <div className="mb-3">
                     <label className="col-form-label text-dark">Título:</label>
-                    <input type="text" className="form-control border border-2 border-dark" id="typeTitle"/>
+                    <input onKeyDown={(event) => {
+                            if (event.keyCode === 13) {
+                                document.getElementById('typeSubtitle').focus()
+                            }
+                        }} type="text" className="form-control border border-2 border-dark" id="typeTitle"/>
                 </div>
                 <div className="mb-3">
                     <label className="col-form-label text-dark">Descrição:</label>
-                    <input type="text" className="form-control border border-2 border-dark" id="typeSubtitle"/>
+                    <input onKeyDown={(event) => {
+                            if (event.keyCode === 13) {
+                                document.getElementById('typeImageUrl').focus()
+                            }
+                        }} type="text" className="form-control border border-2 border-dark" id="typeSubtitle"/>
                 </div>
                 <div className="mb-3">
                     <label className="col-form-label text-dark">Imagem (URL): <span style={{color: '#8b8b8b'}}>(Opcional)</span></label>
-                    <input type="text" className="form-control border border-2 border-dark" id="typeImageUrl"/>
+                    <input onKeyDown={(event) => {
+                            if (event.keyCode === 13) {
+                                document.getElementById('typeContent').focus()
+                            }
+                        }} type="text" className="form-control border border-2 border-dark" id="typeImageUrl"/>
                 </div>
                 <div className="mb-3">
                     <label className="col-form-label text-dark">Conteúdo: <span className="text-primary">(Coloque as tags no texto)</span></label>
