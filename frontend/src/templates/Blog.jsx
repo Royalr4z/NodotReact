@@ -50,8 +50,8 @@ export default function Blog() {
                 }
 
                 const blogData = data.blog.map(blog => {
-                    if (!blog.imageurl) {
-                        blog.imageurl = imgBlog2;
+                    if (!blog.imageUrl) {
+                        blog.imageUrl = imgBlog2;
                     }
                     setLoading(false);
                     return blog;
@@ -69,8 +69,8 @@ export default function Blog() {
         axios.get(`${BaseUrl}/blogs/orderby`)
         .then(response => {
             const updatedPosts = response.data.blog.map(post => {
-            if (!post.imageurl) {
-                post.imageurl = imgBlog2;
+            if (!post.imageUrl) {
+                post.imageUrl = imgBlog2;
             }
             return post;
             });
@@ -151,7 +151,7 @@ export default function Blog() {
                             <div key={`blog-${blog.id}`} className="col-md-6 wow slideInUp mb-4" data-wow-delay="0.1s" id={`item-${blog.id}`}>
                                 <div className="blog-item bg-light rounded overflow-hidden">
                                 <div className="blog-img position-relative overflow-hidden">
-                                    <img className="img-fluid border-1 border-top border-start border-end border-gray" src={blog.imageurl} alt={`imagem-${blog.title}`} style={{ height: '25vh', width: '100vh' }} />
+                                    <img className="img-fluid border-1 border-top border-start border-end border-gray" src={blog.imageUrl} alt={`imagem-${blog.title}`} style={{ height: '25vh', width: '100vh' }} />
                                     <a className="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href={`blog?category=${blog.categoryName}`}>
                                     {blog.categoryName}
                                     </a>
@@ -231,7 +231,7 @@ export default function Blog() {
                         {posts.map(post => (
                             <a key={`post-${post.id}`} href={`detail?id=${post.id}`} 
                             className="d-flex rounded overflow-hidden mb-3 bg-light border border-2 border-primary" style={{ borderRadius: '200px' }}>
-                                <img className="img-fluid" src={post.imageurl} style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="" />
+                                <img className="img-fluid" src={post.imageUrl} style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="" />
                                 <span className="h5 fw-semi-bold d-flex align-items-center px-3 mb-0 text-dark">{post.title}</span>
                             </a>
                         ))}

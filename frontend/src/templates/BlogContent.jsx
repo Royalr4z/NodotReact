@@ -14,7 +14,7 @@ export default function BlogContent() {
         axios.get(`${BaseUrl}/blogs/${id}`)
         .then(response => {
             const blogs = response.data;
-            if ( blogs.title === undefined || blogs.imageurl === undefined ||
+            if ( blogs.title === undefined || blogs.imageUrl === undefined ||
                 blogs.content === undefined || blogs.userName === undefined ) 
                 {window.location.href = './blog'}
             if (id) {
@@ -34,8 +34,8 @@ export default function BlogContent() {
         axios.get(`${BaseUrl}/blogs/orderby`)
         .then(response => {
             const updatedPosts = response.data.blog.map(post => {
-            if (!post.imageurl) {
-                post.imageurl = imgBlog2;
+            if (!post.imageUrl) {
+                post.imageUrl = imgBlog2;
             }
             return post;
             });
@@ -62,7 +62,7 @@ export default function BlogContent() {
                     {/* <!-- Blog Detail Start --> */}
                         <div className="mb-5">
                             <img className="img-fluid w-100 rounded-3 border border-gray mb-0" 
-                            src={blogData.imageurl ? blogData.imageurl : 
+                            src={blogData.imageUrl ? blogData.imageUrl : 
                             'https://gumlet.assettype.com/newslaundry%2F2020-12%2F79605f3f-caeb-4d5b-965b-0feba01f911b%2FRetraction_in_2020_AI.jpg?auto=format%2Ccompress&fit=max&format=webp&w=480&dpr=2.6'} alt=""/>
                             <hr className="text-dark mt-5 mb-4"/>
                             <div className="d-flex justify-content-between my-2">
@@ -119,7 +119,7 @@ export default function BlogContent() {
                         {posts.map(post => (
                             <a key={`post-${post.id}`} href={`detail?id=${post.id}`} 
                             className="d-flex rounded overflow-hidden mb-3 bg-light border border-2 border-primary" style={{ borderRadius: '200px' }}>
-                                <img className="img-fluid" src={post.imageurl} style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="" />
+                                <img className="img-fluid" src={post.imageUrl} style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="" />
                                 <span className="h5 fw-semi-bold d-flex align-items-center px-3 mb-0 text-dark">{post.title}</span>
                             </a>
                         ))}
