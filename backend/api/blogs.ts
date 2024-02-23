@@ -41,7 +41,7 @@ module.exports = (app :any) => {
             .join('users', 'users.id', 'blogs.userid')
             .join('category', 'category.id', 'blogs.categoryid')
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.subtitle', 'blogs.imageurl as imageUrl', 'blogs.content',
             'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .offset(offset)
             .limit(limit)
@@ -66,7 +66,7 @@ module.exports = (app :any) => {
             .join('users', 'users.id', 'blogs.userid')
             .join('category', 'category.id', 'blogs.categoryid')
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.subtitle', 'blogs.imageurl as imageUrl', 'blogs.content',
             'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .limit(3)
             .from('blogs')
@@ -89,7 +89,7 @@ module.exports = (app :any) => {
             .join('category', 'category.id', 'blogs.categoryid')
             .where('blogs.id', '=', req.params.id)
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.subtitle', 'blogs.imageurl as imageUrl', 'blogs.content',
             'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .first()
             .then((blog :any) => res.json(blog))
@@ -111,7 +111,7 @@ module.exports = (app :any) => {
             .join('category', 'category.id', 'blogs.categoryid')
             .where('category.name', '=', category)
             .select('blogs.id', 'blogs.date', 'blogs.title',
-            'blogs.subtitle', 'blogs.imageurl', 'blogs.content',
+            'blogs.subtitle', 'blogs.imageurl as imageUrl', 'blogs.content',
             'blogs.userid', 'users.name as userName', 'blogs.categoryid', 'category.name as categoryName')
             .offset(offset)
             .limit(limit)
