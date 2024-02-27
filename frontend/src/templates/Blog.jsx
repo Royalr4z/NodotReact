@@ -162,7 +162,13 @@ export default function Blog() {
                                     <small><i className="far fa-calendar-alt text-primary me-2"></i>{blog.date}</small>
                                     </div>
                                     <h4 className="mb-3">{blog.title}</h4>
-                                    <p>{blog.subtitle}</p>
+                                    <p id="blogSubtitle"style={{
+                                                display: '-webkit-box',
+                                                WebkitBoxOrient: 'vertical',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                WebkitLineClamp: '2', /* Altere o número máximo de linhas com base no estado */}}>
+                                        {blog.subtitle}</p>
                                     <a className="text-uppercase" href={`detail?id=${blog.id}`}>
                                     Leia Mais <i className="bi bi-arrow-right"></i>
                                     </a>
