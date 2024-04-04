@@ -5,9 +5,13 @@ import Iframe from 'react-iframe'
 
 export default function ContactUs() {
 
-    const [msgError, setMsgError] = useState({});
-    const [boxSuccess, setBoxSuccess] = useState(true);
-    const [boxError, setBoxError] = useState(true);
+    const [state, setState] = useState({
+        msgError: {},
+        boxSuccess: true,
+        boxError: true
+    });
+
+    const { msgError, boxSuccess, boxError } = state;
 
     const Send = async () => { 
 
@@ -27,8 +31,8 @@ export default function ContactUs() {
         try {
             const response = await axios.post(`${BaseUrl}/message`, dados, options);
             if (response.status === 204) {
-                setBoxError(true)
-                setBoxSuccess(false)
+                setState(prevState => ({ ...prevState, boxError: true}));
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
 
                 document.querySelector('#typeUser').value = ''
                 document.querySelector('#typeEmail').value = ''
@@ -36,16 +40,16 @@ export default function ContactUs() {
                 document.querySelector('#typeContent').value = ''
 
                 setTimeout(() => {
-                window.location.href = './contact';
+                    window.location.href = './contact';
                 }, 2000);
             }
           } catch (error) {
-            setBoxError(false)
-           
-            setMsgError({
+            setState(prevState => ({ ...prevState, boxError: false}));
+
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: 400
-            })
+            }}));
             }
         }
 

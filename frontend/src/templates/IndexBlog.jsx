@@ -6,18 +6,22 @@ import imgBlog2 from '../img/blog-2.jpg';
 
 export default function IndexBlog() {
 
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [state, setState] = useState({
+        blogs: [],
+        loading: true
+    });
+
+    const { blogs, loading} = state;
 
     useEffect(() => {
         axios.get(`${BaseUrl}/blogs/orderby`)
             .then(response => {
                 const blogsData = response.data.blog;
-                setBlogs(blogsData);
-                setLoading(false);
+                setState(prevState => ({ ...prevState, blogs: blogsData}));
+                setState(prevState => ({ ...prevState, loading: false}));
             })
             .catch(error => {
-                setLoading(true)
+                setState(prevState => ({ ...prevState, loading: true}));
             });
     }, []);
 

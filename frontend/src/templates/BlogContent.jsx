@@ -8,9 +8,16 @@ export default function BlogContent() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    const [blogData, setBlogData] = useState({});
+    const [state, setState] = useState({
+        posts: [],
+        blogData: {},
+        categories: []
+    });
+
+    const { posts, blogData, categories } = state;
 
     useEffect(() => {
+        // Obtendo os blogs pelo id
         axios.get(`${BaseUrl}/blogs/${id}`)
         .then(response => {
             const blogs = response.data;
@@ -18,19 +25,16 @@ export default function BlogContent() {
                 blogs.content === undefined || blogs.userName === undefined ) 
                 {window.location.href = './blog'}
             if (id) {
-            const titleBlog = document.getElementById('title-blog');
-            titleBlog.classList.remove('text-danger');
-            setBlogData(blogs);
+                const titleBlog = document.getElementById('title-blog');
+                titleBlog.classList.remove('text-danger');
+                setState(prevState => ({ ...prevState, blogData: blogs}));
             } else {
-            window.location.href = './blog';
+                window.location.href = './blog';
             }
         })
         .catch(err => window.location.href = './blog')
-    }, [id]);
 
-    const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
+        // Obtendo os blogs de Forma Ordenada
         axios.get(`${BaseUrl}/blogs/orderby`)
         .then(response => {
             const updatedPosts = response.data.blog.map(post => {
@@ -39,20 +43,17 @@ export default function BlogContent() {
             }
             return post;
             });
-            setPosts(updatedPosts);
+            setState(prevState => ({ ...prevState, posts: updatedPosts}));
         })
         .catch(err => console.log(err));
-    }, []);
 
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
+        // Obtendo as Categorias
         axios.get(`${BaseUrl}/category`)
           .then(response => {
-            setCategories(response.data);
+            setState(prevState => ({ ...prevState, categories: response.data}));
           })
           .catch(err => console.log(err));
-      }, []);   
+    }, [id]);
 
     return (
         <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">

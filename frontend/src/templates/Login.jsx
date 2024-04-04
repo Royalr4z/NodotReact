@@ -4,9 +4,13 @@ import { BaseUrl } from '../BaseUrl'
 
 export default function Login() {
 
-    const [msgError, setMsgError] = useState({});
-    const [boxSuccess, setBoxSuccess] = useState(true);
-    const [boxError, setBoxError] = useState(true);
+    const [state, setState] = useState({
+        msgError: {},
+        boxSuccess: true,
+        boxError: true
+    });
+
+    const { msgError, boxSuccess, boxError } = state;
 
 
     const connectUser = async () => { 
@@ -25,8 +29,8 @@ export default function Login() {
         try {
             const response = await axios.post(`${BaseUrl}/signin`, dados, options);
             if (response.status === 200) {
-                setBoxError(true)
-                setBoxSuccess(false)
+                setState(prevState => ({ ...prevState, boxError: true}));
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
 
                 document.querySelector('#typeEmail').value = ''
                 document.querySelector('#typePassword').value = ''
@@ -45,12 +49,12 @@ export default function Login() {
                 return 
             }
           } catch (error) {
-            setBoxError(false)
-           
-            setMsgError({
+            setState(prevState => ({ ...prevState, boxError: false}));
+
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: error.response.status,
-            })
+            }}));
             }
         }
 

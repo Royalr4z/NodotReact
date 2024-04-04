@@ -9,11 +9,16 @@ export default function CategoryInsert() {
     const id = params.get('id');
     const mode = params.get('mode');
 
-    const msgSuccess= document.querySelector('#msg-success');
-    
-    const [msgError, setMsgError] = useState({});
-    const [boxSuccess, setBoxSuccess] = useState(true);
-    const [boxError, setBoxError] = useState(true);
+    const msgSuccess = document.querySelector('#msg-success');
+
+    const [state, setState] = useState({
+        msgError: {},
+        boxSuccess: true,
+        boxError: true,
+        category: []
+    });
+
+    const { msgError, boxSuccess, boxError, category } = state;
 
     const editar = async () => {
         const dadosEditados = {
@@ -29,14 +34,14 @@ export default function CategoryInsert() {
           }
         };
       
-        setBoxError(true)
-        setBoxSuccess(true)
+        setState(prevState => ({ ...prevState, boxError: true}));
+        setState(prevState => ({ ...prevState, boxSuccess: true}));
 
         try {
             const response = await axios.put(`${BaseUrl}/category/${id}`, dadosEditados, options)
             if (response.status === 204) {
-                setBoxError(true)
-                setBoxSuccess(false)
+                setState(prevState => ({ ...prevState, boxError: true}));
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
         
                 msgSuccess.innerHTML = 'Editado com Sucesso!'
                 document.getElementById("typeName").value = ''
@@ -47,12 +52,12 @@ export default function CategoryInsert() {
         
             }
         } catch (error) {
-            setBoxError(false)
+            setState(prevState => ({ ...prevState, boxError: false}));
             
-            setMsgError({
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: error.response.status,
-            })
+            }}));
         }
       }
 
@@ -65,31 +70,31 @@ export default function CategoryInsert() {
             }
         };
 
-        setBoxSuccess(true)
-        setBoxError(true)
+        setState(prevState => ({ ...prevState, boxError: true}));
+        setState(prevState => ({ ...prevState, boxSuccess: true}));
     
         try {
             const response = await axios.delete(`${BaseUrl}/category/${id}`, options);
             if (response.status === 204) {
-                    setBoxError(true)
-                    setBoxSuccess(false)
-            
-                    msgSuccess.innerHTML = 'Deletado com Sucesso!'
-                    document.getElementById("typeName").value = ''
-                    document.querySelector('#typeSubtitle').value = ''
-            
-                    setTimeout(() => {
-                        window.location.href = '/category-creation' 
-                    }, 1500);
+                setState(prevState => ({ ...prevState, boxError: true}));
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
+        
+                msgSuccess.innerHTML = 'Deletado com Sucesso!'
+                document.getElementById("typeName").value = ''
+                document.querySelector('#typeSubtitle').value = ''
+        
+                setTimeout(() => {
+                    window.location.href = '/category-creation' 
+                }, 1500);
             
             }
         } catch (error) {
-            setBoxError(false)
+            setState(prevState => ({ ...prevState, boxError: false}));
             
-            setMsgError({
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: error.response.status,
-            })
+            }}));
         }
     }
 
@@ -107,14 +112,14 @@ export default function CategoryInsert() {
           }
         };
         
-        setBoxSuccess(true)
-        setBoxError(true)
+        setState(prevState => ({ ...prevState, boxError: true}));
+        setState(prevState => ({ ...prevState, boxSuccess: true}));
     
         try {
             const response = await axios.post(`${BaseUrl}/category`, dados, options);
             if (response.status === 204) {
-                setBoxError(true)
-                setBoxSuccess(false)
+                setState(prevState => ({ ...prevState, boxError: true}));
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
             
                 document.getElementById("typeName").value = ''
                 document.querySelector('#typeSubtitle').value = ''
@@ -123,25 +128,25 @@ export default function CategoryInsert() {
             
             }
         } catch (error) {
-            setBoxError(false)
-           
-            setMsgError({
+            setState(prevState => ({ ...prevState, boxError: false}));
+
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: error.response.status,
-            })
+            }}));
         }
     }
 
     const Cancel = () => {
         if(id && mode) { 
-            setBoxSuccess(true)
-            setBoxError(true)
+            setState(prevState => ({ ...prevState, boxError: true}));
+            setState(prevState => ({ ...prevState, boxSuccess: true}));
             document.querySelector('#typeName').value = ''
             document.querySelector('#typeSubtitle').value = ''
             window.location.href = '/category-creation' 
         } else {
-            setBoxSuccess(true)
-            setBoxError(true)
+            setState(prevState => ({ ...prevState, boxError: true}));
+            setState(prevState => ({ ...prevState, boxSuccess: true}));
             document.querySelector('#typeName').value = ''
             document.querySelector('#typeSubtitle').value = ''
         }
@@ -166,9 +171,8 @@ export default function CategoryInsert() {
           .catch(err => console.log(err))
     }
 
-    const [category, setCategory] = useState([]);
-
     useEffect(() => {
+        // Obtendo as Categorias
         axios.get(`${BaseUrl}/category`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -176,14 +180,16 @@ export default function CategoryInsert() {
             }
         })
             .then(response => {
-                setCategory(response.data);
+                setState(prevState => ({ ...prevState, category: response.data}));
             })
             .catch(error => {
                 window.location.href = '/Error404'
             });
     }, []);
 
+
     useEffect(() => {
+        // Ordenando a Tabela
         const table = $('table');
         const headers = table.find('th');
         const rows = table.find('tbody tr');
@@ -237,7 +243,7 @@ export default function CategoryInsert() {
         
         sortTable();
         toggleSortIcon();
-        }, [category]);
+    }, [category]);
 
     return (
         <>

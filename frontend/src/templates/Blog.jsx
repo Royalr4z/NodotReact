@@ -12,8 +12,14 @@ export default function Blog() {
 
     let counter = 1
 
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [state, setState] = useState({
+        posts: [],
+        blogs: [],
+        loading: true,
+        categories: []
+    });
+
+    const { posts, blogs, loading, categories } = state;
 
     const params = new URLSearchParams(window.location.search);
     const categoryUrl = params.get('category');
@@ -35,7 +41,7 @@ export default function Blog() {
             } else {
                 url = `${BaseUrl}/Blogs/category?page=${pagination <= 0 ? pagination = 1 : pagination}&limit=${itensPerPage}&category=${categoryUrl}`
             }
-            setLoading(true);
+            setState(prevState => ({ ...prevState, loading: true}));
             axios.get(`${url}`)
               .then(response => response.data)
               .then(data => {
@@ -46,24 +52,22 @@ export default function Blog() {
                         window.location.href = `./blog?pg=${totalPages}`
                     }
                 } else {
-                    setLoading(true);
+                    setState(prevState => ({ ...prevState, loading: true}));
                 }
 
                 const blogData = data.blog.map(blog => {
                     if (!blog.imageUrl) {
                         blog.imageUrl = imgBlog2;
                     }
-                    setLoading(false);
+                    setState(prevState => ({ ...prevState, loading: false}));
                     return blog;
                 });
 
-                setBlogs(blogData);
+                setState(prevState => ({ ...prevState, blogs: blogData}));
               })
               .catch(err => console.log('Error 500'))
           }, [categoryUrl, counter]);
     }
-
-    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         axios.get(`${BaseUrl}/blogs/orderby`)
@@ -74,20 +78,16 @@ export default function Blog() {
             }
             return post;
             });
-            setPosts(updatedPosts);
+            setState(prevState => ({ ...prevState, posts: updatedPosts}));
         })
         .catch(err => err);
-    }, []);
 
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
         axios.get(`${BaseUrl}/category`)
           .then(response => {
-            setCategories(response.data);
+            setState(prevState => ({ ...prevState, categories: response.data}));
           })
           .catch(err => err);
-      }, []);               
+      }, []);
 
     const Next = () => {
         if (paginationUrl !== null ){

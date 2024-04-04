@@ -4,9 +4,13 @@ import axios from "axios";
 
 export default function Quote() {
 
-    const [msgError, setMsgError] = useState({});
-    const [boxSuccess, setBoxSuccess] = useState(true);
-    const [boxError, setBoxError] = useState(true);
+    const [state, setState] = useState({
+        msgError: {},
+        boxSuccess: true,
+        boxError: true
+    });
+
+    const { msgError, boxSuccess, boxError } = state;
 
     const registerData = async () =>{
         const dados = {
@@ -22,14 +26,14 @@ export default function Quote() {
             }
         };
 
-        setBoxError(true)
-        setBoxSuccess(true)
+        setState(prevState => ({ ...prevState, boxError: true}));
+        setState(prevState => ({ ...prevState, boxSuccess: true}));
     
         try {
             const response = await axios.post(`${BaseUrl}/FreeQuote`, dados, options);
             if(response.status === 204){
-                setBoxError(true)
-                setBoxSuccess(false)
+                setState(prevState => ({ ...prevState, boxError: true}));
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
 
                 document.querySelector('#typeName').value = ''
                 document.querySelector('#typeEmail').value = ''
@@ -38,12 +42,12 @@ export default function Quote() {
 
             }
         } catch (error) {
-            setBoxError(false)
-            
-            setMsgError({
+            setState(prevState => ({ ...prevState, boxError: false}));
+
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: error.response.status,
-            })
+            }}));
         }
     }
 

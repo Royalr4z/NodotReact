@@ -5,12 +5,15 @@ import { BaseUrl } from '../BaseUrl'
 export default function BlogInsert() {
     const token = localStorage.getItem('token');
 
-    const [msgError, setMsgError] = useState({});
-    const [boxSuccess, setBoxSuccess] = useState(true);
-    const [boxError, setBoxError] = useState(true);
+    const [state, setState] = useState({
+        msgError: {},
+        boxSuccess: true,
+        boxError: true,
+        users: [],
+        category: []
+    });
 
-    const [users, setUsers] = useState([]);
-    const [category, setCategory] = useState([]);
+    const { msgError, boxSuccess, boxError, users, category } = state;
 
     const options = {
         headers: {
@@ -20,21 +23,21 @@ export default function BlogInsert() {
     };
 
     useEffect(() => {
+        // Obtendo os Usuários
         axios.get(`${BaseUrl}/users`, options)
           .then(response => response.data)
           .then(data => {
             
-            setUsers(data)
+            setState(prevState => ({ ...prevState, users: data}));
           })
           .catch(err => console.log('Error 500'))
-    }, []);
 
-    useEffect(() => {
+        // Obtendo as Categorias
         axios.get(`${BaseUrl}/category`, options)
           .then(response => response.data)
           .then(data => {
             
-            setCategory(data)
+            setState(prevState => ({ ...prevState, category: data}));
           })
           .catch(err => console.log('Error 500'))
      }, []);
@@ -62,15 +65,16 @@ export default function BlogInsert() {
             userId: document.querySelector('#typeUser').value,
             categoryId: document.querySelector('#typeCategory').value,
         }
-        
-        setBoxSuccess(true)
-        setBoxError(true)
+
+        setState(prevState => ({ ...prevState, boxSuccess: true}));
+        setState(prevState => ({ ...prevState, boxError: true}));
         
         try {
             const response = await axios.post(`${BaseUrl}/blogs`, dados, options);
             if (response.status === 204) {
-                setBoxError(true)
-                setBoxSuccess(false)
+
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
+                setState(prevState => ({ ...prevState, boxError: true}));
             
                 document.querySelector('#typeUser').value = ''
                 document.querySelector('#typeTitle').value = ''
@@ -81,18 +85,18 @@ export default function BlogInsert() {
             
             }
         } catch (error) {
-            setBoxError(false)
+            setState(prevState => ({ ...prevState, boxError: false}));
            
-            setMsgError({
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: error.response.status,
-            })
+            }}));
         }
     }
 
     const Cancel = () => {
-        setBoxSuccess(true)
-        setBoxError(true)
+        setState(prevState => ({ ...prevState, boxSuccess: true}));
+        setState(prevState => ({ ...prevState, boxError: true}));
         document.querySelector('#typeUser').value = ''
         document.querySelector('#typeTitle').value = ''
         document.querySelector('#typeSubtitle').value = ''

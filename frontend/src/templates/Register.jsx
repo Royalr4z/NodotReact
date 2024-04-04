@@ -4,9 +4,13 @@ import { BaseUrl } from "../BaseUrl"
 
 export default function Register() {
 
-    const [msgError, setMsgError] = useState({});
-    const [boxSuccess, setBoxSuccess] = useState(true);
-    const [boxError, setBoxError] = useState(true);
+    const [state, setState] = useState({
+        msgError: {},
+        boxSuccess: true,
+        boxError: true
+    });
+
+    const { msgError, boxSuccess, boxError } = state;
 
     const registerData = async () => {
 
@@ -26,8 +30,8 @@ export default function Register() {
         try {
         const response = await axios.post(`${BaseUrl}/signup`, dados, options);
             if(response.status === 204){
-                setBoxError(true)
-                setBoxSuccess(false)
+                setState(prevState => ({ ...prevState, boxError: true}));
+                setState(prevState => ({ ...prevState, boxSuccess: false}));
       
                 document.querySelector('#typeName').value = ''
                 document.querySelector('#typeEmail').value = ''
@@ -39,12 +43,12 @@ export default function Register() {
                 }, 2000);
             }
         } catch (error) {
-            setBoxError(false)
-           
-            setMsgError({
+            setState(prevState => ({ ...prevState, boxError: false}));
+
+            setState(prevState => ({ ...prevState, msgError: {
                 msg: error.response.data,
                 status: error.response.status,
-            })
+            }}));
             }
       }
 

@@ -10,8 +10,12 @@ export default function UsersTable() {
     // const id = params.get('id');
     // const mode = params.get('mode');
 
-    const [users, setUsers] = useState([]);
-    const [error, setError] = useState(true);
+    const [state, setState] = useState({
+        users: [],
+        error: true
+    });
+
+    const { users, error } = state;
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -22,11 +26,11 @@ export default function UsersTable() {
             }
         })
             .then(response => {
-                setError(true)
-                setUsers(response.data);
+                setState(prevState => ({ ...prevState, error: true}));
+                setState(prevState => ({ ...prevState, users: response.data}));
             })
             .catch(error => {
-                setError(false)
+                setState(prevState => ({ ...prevState, error: false}));
             });
     }, []);
 
